@@ -93,7 +93,7 @@ resource "aws_cloudtrail" "main" {
   enable_log_file_validation    = true
 
   event_selector {
-    read_write_type           = "ALL"
+    read_write_type           = "All"
     include_management_events = true
 
     data_resource {

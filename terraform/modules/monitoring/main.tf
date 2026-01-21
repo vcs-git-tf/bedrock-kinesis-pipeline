@@ -23,7 +23,7 @@ variable "aws_kinesis_stream_name" {
 variable "step_function_arn" {
   description = "Step function state machine ARN to monitor"
   type        = string
-  default     = ""
+  # default     = ""
 }
 
 variable "alarm_email" {
@@ -99,6 +99,7 @@ resource "aws_cloudwatch_metric_alarm" "lambda_throttles" {
   metric_name         = "Throttles"
   namespace           = "AWS/Lambda"
   period              = 300
+  statistic           = "Average"
   threshold           = 0
   alarm_description   = "Lambda function ${each.value} is being throttled"
   alarm_actions       = [aws_sns_topic.alarms.arn]
@@ -134,7 +135,6 @@ resource "aws_cloudwatch_metric_alarm" "kinesis_iterator_age" {
 
 # Step Functions Failed Executions Alarms
 resource "aws_cloudwatch_metric_alarm" "step_function_failures" {
-  count = var.step_function_arn != "" ? 1 : 0
 
   alarm_name          = "${var.project_name}-${var.environment}-step-function-failures"
   comparison_operator = "GreaterThanThreshold"
@@ -152,6 +152,10 @@ resource "aws_cloudwatch_metric_alarm" "step_function_failures" {
   }
 
   treat_missing_data = "notBreaching"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # CloudWatch Dashboard
