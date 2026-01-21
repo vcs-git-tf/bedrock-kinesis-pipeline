@@ -40,7 +40,7 @@ resource "aws_subnet" "public" {
   count             = 2
   vpc_id            = aws_vpc.main.id
   cidr_block        = cidrsubnet(var.vpc_cidr, 4, count.index)
-  availability_zone = data.aws_availability_zone.available.name[count.index]
+  availability_zone = data.aws_availability_zones.available.names[count.index] # Fixed
 
   tags = {
     name        = "${var.project_name}-${var.environment}-public-${count.index + 1}"
@@ -54,7 +54,7 @@ resource "aws_subnet" "private" {
   count             = 2
   vpc_id            = aws_vpc.main.id
   cidr_block        = cidrsubnet(var.vpc_cidr, 4, count.index + 2)
-  availability_zone = data.aws_availability_zone.available.name[count.index]
+  availability_zone = data.aws_availability_zones.available.names[count.index] # Fixed
 
   tags = {
     name        = "${var.project_name}-${var.environment}-private-${count.index + 1}"
@@ -80,7 +80,7 @@ resource "aws_route_table" "public" {
 
 resource "aws_route_table_association" "public" {
   count          = 2
-  subnet_id      = aws_subnet.public[count.index].id
+  subnet_id      = aws_subnet.public[count.index].id # Fixed
   route_table_id = aws_route_table.public.id
 }
 
@@ -107,9 +107,9 @@ output "vpc_id" {
 }
 
 output "private_subnet_ids" {
-  value = aws_subnet.private.id
+  value = aws_subnet.private[*].id # Fixed
 }
 
 output "public_subnet_ids" {
-  value = aws_subnet.public.id
+  value = aaws_subnet.public[*].id # Fixed
 }

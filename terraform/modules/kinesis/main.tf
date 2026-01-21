@@ -23,7 +23,7 @@ variable "shard_count" {
 resource "aws_kinesis_stream" "main" {
   name             = "${var.project_name}-${var.environment}-stream"
   shard_count      = var.shard_count
-  retention_period = 8 #hours
+  retention_period = 24 #hours
 
   shard_level_metrics = [
     "IncomingBytes",

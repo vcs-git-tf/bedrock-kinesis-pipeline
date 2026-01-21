@@ -60,7 +60,7 @@ resource "aws_lambda_function" "function" {
 }
 
 resource "aws_cloudwatch_log_group" "lambda_logs" {
-  name              = "/aws/lambda/${aws_lambda_function_function.function_name}"
+  name              = "/aws/lambda/${aws_lambda_function.function.function_name}" # Removed extra _function
   retention_in_days = 5
 }
 
@@ -81,5 +81,5 @@ resource "aws_iam_role" "lambda_exec" {
 
 resource "aws_iam_role_policy_attachment" "lambda_basic" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  role       = _role.lambda_exec.name
+  role       = aws_iam_role.lambda_exec.name # Fixed aws_iam_role prefix
 }

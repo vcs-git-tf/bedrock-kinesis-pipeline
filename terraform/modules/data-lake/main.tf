@@ -51,7 +51,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "data_lake" {
 
     transition {
       days          = 10
-      storage_class = "STANTARD_IA"
+      storage_class = "STANDARD_IA"
     }
 
     transition {
