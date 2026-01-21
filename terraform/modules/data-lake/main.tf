@@ -49,6 +49,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "data_lake" {
     id     = "transition-to-la"
     status = "Enabled"
 
+    filter {
+      prefix = ""  # Empty prefix means apply to all objects
+    }
+
     transition {
       days          = 10
       storage_class = "STANDARD_IA"
@@ -63,6 +67,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "data_lake" {
   rule {
     id     = "expire-old-versions"
     status = "Enabled"
+
+    filter {
+      prefix = "logs/"  # Apply only to logs/ prefix
+    }
 
     noncurrent_version_expiration {
       noncurrent_days = 10
