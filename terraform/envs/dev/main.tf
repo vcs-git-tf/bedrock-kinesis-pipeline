@@ -52,7 +52,7 @@ module "bedrock_processor" {
   function_name = "${local.project_name}-${local.environment}-bedrock-processor"
   source_dir    = "../../../src/lambda/bedrock_processor"
   environment_variables = {
-    DATA_LAKE_BUCKET = module.data_lake.bucke_name
+    DATA_LAKE_BUCKET = module.data_lake.bucket_name
   }
 }
 
@@ -86,7 +86,7 @@ module "monitoring" {
     module.bedrock_processor.function_name
   ]
 
-  aws_kinesis_stream_name = module.aws_kinesis_stream # removed _name from end of string
+  aws_kinesis_stream_name = module.kinesis.stream_name
   step_function_arn       = module.data_processing_workflow.state_machine_arn
 }
 
@@ -105,7 +105,7 @@ output "aws_cloudwatch_dashboard_url" {
 }
 
 output "data_lake_bucket" {
-  value = module.data_lake_bucket_name
+  value = module.data_lake.bucket_name
 }
 
 output "aws_kinesis_stream" {
