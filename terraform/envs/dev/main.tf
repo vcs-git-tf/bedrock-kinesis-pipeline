@@ -59,7 +59,7 @@ module "bedrock_processor" {
 module "data_processing_workflow" {
   source             = "../../modules/step_functions"
   state_machine_name = "${local.project_name}-${local.environment}-workflow"
-  lambda_arn         = module.bedrock_processor.function.arn
+  lambda_arn         = module.bedrock_processor.function_arn
 }
 
 module "spice_scheduler" {
@@ -110,7 +110,7 @@ output "aws_cloudwatch_dashboard_url" {
 }
 
 output "data_lake_bucket" {
-  value = module.aws_s3_bucket.data_lake.id
+  value = module.data_lake.bucket_name
 }
 
 output "aws_kinesis_stream" {

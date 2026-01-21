@@ -83,3 +83,13 @@ resource "aws_iam_role_policy_attachment" "lambda_basic" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   role       = aws_iam_role.lambda_exec.name # Fixed aws_iam_role prefix
 }
+
+output "function_name" {
+  description = "Name of the Lambda function"
+  value       = aws_lambda_function.function.function_name
+}
+
+output "function_arn" {
+  description = "ARN of the Lambda function"
+  value       = aws_lambda_function.function.arn
+}
