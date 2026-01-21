@@ -52,7 +52,7 @@ module "bedrock_processor" {
   function_name = "${local.project_name}-${local.environment}-bedrock-processor"
   source_dir    = "../../../src/lambda/bedrock_processor"
   environment_variables = {
-    DATA_LAKE_BUCKET = module.data_lake.bucket_name
+    DATA_LAKE_BUCKET = module.module.data_lake.id
   }
 }
 
@@ -102,7 +102,7 @@ module "security" {
 #Outputs
 output "bucket_name" {
   description = "Name of the data lake S3 bucket"
-  value       = module.data_lake.bucket_name  # Adjust resource name if different
+  value       = module.data_lake.id  # Adjust resource name if different
 }
 
 output "aws_cloudwatch_dashboard_url" {
@@ -110,7 +110,7 @@ output "aws_cloudwatch_dashboard_url" {
 }
 
 output "data_lake_bucket" {
-  value = module.data_lake.bucket_name
+  value = module.data_lake.id
 }
 
 output "aws_kinesis_stream" {
