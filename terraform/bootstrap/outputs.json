@@ -1,0 +1,12 @@
+{
+  "aws_dynamodb_table": {
+    "sensitive": false,
+    "type": "string",
+    "value": "data-paltform-terraform-locks"
+  },
+  "aws_s3_bucket_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "data-paltform-terraform-state-194191748922"
+  }
+}
