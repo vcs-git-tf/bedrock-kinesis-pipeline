@@ -138,7 +138,7 @@ resource "aws_glue_crawler" "data_lake" {
 
 data "aws_caller_identity" "current" {}
 
-output "bucke_name" {
+output "bucket_name" {
   value = aws_s3_bucket.data_lake.id
 }
 
