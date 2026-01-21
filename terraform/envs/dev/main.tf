@@ -86,7 +86,7 @@ module "monitoring" {
     module.bedrock_processor.function_name
   ]
 
-  aws_kinesis_stream_name = module.kinesis_stream_name # removed aws. prefix
+  aws_kinesis_stream_name = module.aws_kinesis_stream # removed _name from end of string
   step_function_arn       = module.data_processing_workflow.state_machine_arn
 }
 
